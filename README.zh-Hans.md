@@ -14,7 +14,22 @@
 [![CI](https://github.com/all-right-LLC/keydrop/actions/workflows/ci.yml/badge.svg)](https://github.com/all-right-LLC/keydrop/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 
+<a href="https://www.producthunt.com/products/keydrop-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-keydrop-2" target="_blank" rel="noopener noreferrer"><picture><source media="(prefers-color-scheme: dark)" srcset="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1308544&theme=dark"><img alt="Keydrop on Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1308544&theme=light"></picture></a>
+
 > **状态：** 1.0 之前的版本。核心流程已能在 Cloudflare 上端到端运行，但 1.0 之前可能会有破坏性变更。用于真实销售前，请先在自己的环境中测试。
+
+<p align="center"><img src=".github/assets/dashboard.jpg" alt="Keydrop admin dashboard" width="100%"></p>
+
+<table>
+  <tr>
+    <td width="50%"><img src=".github/assets/handout.jpg" alt="Quick handout from your phone"></td>
+    <td width="50%"><img src=".github/assets/stripe.jpg" alt="Sell codes with Stripe Checkout"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src=".github/assets/developers.jpg" alt="API, webhooks and MCP"></td>
+    <td width="50%"><img src=".github/assets/deploy.jpg" alt="Deploy to your own Cloudflare account"></td>
+  </tr>
+</table>
 
 ## 为什么选择 Keydrop
 

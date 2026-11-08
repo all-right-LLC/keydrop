@@ -14,7 +14,22 @@
 [![CI](https://github.com/all-right-LLC/keydrop/actions/workflows/ci.yml/badge.svg)](https://github.com/all-right-LLC/keydrop/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 
+<a href="https://www.producthunt.com/products/keydrop-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-keydrop-2" target="_blank" rel="noopener noreferrer"><picture><source media="(prefers-color-scheme: dark)" srcset="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1308544&theme=dark"><img alt="Keydrop on Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1308544&theme=light"></picture></a>
+
 > **ステータス：** 1.0 未満です。主要なフローは Cloudflare 上でエンドツーエンドに動作しますが、1.0 までは互換性のない変更が入る可能性があります。実際の販売に使う前に、ご自身の環境で十分にテストしてください。
+
+<p align="center"><img src=".github/assets/dashboard.jpg" alt="Keydrop admin dashboard" width="100%"></p>
+
+<table>
+  <tr>
+    <td width="50%"><img src=".github/assets/handout.jpg" alt="Quick handout from your phone"></td>
+    <td width="50%"><img src=".github/assets/stripe.jpg" alt="Sell codes with Stripe Checkout"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src=".github/assets/developers.jpg" alt="API, webhooks and MCP"></td>
+    <td width="50%"><img src=".github/assets/deploy.jpg" alt="Deploy to your own Cloudflare account"></td>
+  </tr>
+</table>
 
 ## Keydrop を選ぶ理由
 

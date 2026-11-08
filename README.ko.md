@@ -15,7 +15,22 @@
 [![CI](https://github.com/all-right-LLC/keydrop/actions/workflows/ci.yml/badge.svg)](https://github.com/all-right-LLC/keydrop/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
 
+<a href="https://www.producthunt.com/products/keydrop-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-keydrop-2" target="_blank" rel="noopener noreferrer"><picture><source media="(prefers-color-scheme: dark)" srcset="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1308544&theme=dark"><img alt="Keydrop on Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1308544&theme=light"></picture></a>
+
 > **상태:** 1.0 이전 버전입니다. 핵심 흐름은 Cloudflare에서 처음부터 끝까지 동작하지만, 1.0 전까지는 호환되지 않는 변경이 있을 수 있습니다. 실제 판매에 사용하기 전에 자신의 환경에서 먼저 테스트하세요.
+
+<p align="center"><img src=".github/assets/dashboard.jpg" alt="Keydrop admin dashboard" width="100%"></p>
+
+<table>
+  <tr>
+    <td width="50%"><img src=".github/assets/handout.jpg" alt="Quick handout from your phone"></td>
+    <td width="50%"><img src=".github/assets/stripe.jpg" alt="Sell codes with Stripe Checkout"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src=".github/assets/developers.jpg" alt="API, webhooks and MCP"></td>
+    <td width="50%"><img src=".github/assets/deploy.jpg" alt="Deploy to your own Cloudflare account"></td>
+  </tr>
+</table>
 
 ## 왜 Keydrop인가
 
