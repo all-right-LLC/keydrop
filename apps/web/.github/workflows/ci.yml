@@ -1,0 +1,108 @@
+name: 驗證 Keydrop
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: keydrop-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['24', '26']
+    env:
+      CI: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - name: 取得原始碼
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: 定位應用目錄
+        id: app
+        shell: bash
+        run: |
+          if [ -f apps/web/package.json ]; then
+            echo 'path=apps/web' >> "$GITHUB_OUTPUT"
+          else
+            echo 'path=.' >> "$GITHUB_OUTPUT"
+          fi
+      - name: 安裝 Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
+      - name: 安裝鎖定版本的 pnpm
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6
+        with:
+          package_json_file: ${{ steps.app.outputs.path }}/package.json
+          run_install: false
+      - name: 安裝相依套件
+        working-directory: ${{ steps.app.outputs.path }}
+        run: pnpm install --frozen-lockfile
+      - name: 驗證選配寄信綁定型別
+        if: matrix.node == '26'
+        working-directory: ${{ steps.app.outputs.path }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import {modify, applyEdits} from 'jsonc-parser';
+          let text = fs.readFileSync('wrangler.jsonc', 'utf8');
+          for (const [path, value] of [
+            [['send_email'], [{name: 'EMAIL'}]],
+            [['vars', 'EMAIL_FROM'], 'sender@example.test'],
+          ]) text = applyEdits(text, modify(text, path, value, {}));
+          fs.writeFileSync('wrangler.jsonc', text);
+          JS
+          pnpm run cf-typegen
+      - name: 靜態檢查與測試
+        working-directory: ${{ steps.app.outputs.path }}
+        run: |
+          pnpm run lint
+          pnpm run typecheck
+          pnpm test
+          pnpm run test:restore
+      - name: 建置正式 Worker
+        working-directory: ${{ steps.app.outputs.path }}
+        run: |
+          pnpm run build:worker
+          pnpm exec wrangler deploy --dry-run --outdir .wrangler/dry-run
+      - name: 驗證全新資料庫與免費分發
+        working-directory: ${{ steps.app.outputs.path }}
+        shell: bash
+        run: |
+          pnpm run db:migrate
+          keydrop_env="$RUNNER_TEMP/keys/keydrop/local.env"
+          node scripts/create-local-env.mjs "$keydrop_env" ci@example.test http://localhost:3100
+          pnpm exec wrangler dev --port 3100 --env-file "$keydrop_env" > "$RUNNER_TEMP/keydrop-worker.log" 2>&1 &
+          keydrop_pid=$!
+          trap 'kill "$keydrop_pid" 2>/dev/null || true; rm -f "$keydrop_env"' EXIT
+          ready=false
+          for attempt in {1..60}; do
+            if curl --silent --fail --max-time 2 http://localhost:3100/setup --output /dev/null; then
+              ready=true
+              break
+            fi
+            if ! kill -0 "$keydrop_pid" 2>/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then
+            echo '本機 Worker 未能啟動；未輸出可能含應用資料的完整日誌。' >&2
+            exit 1
+          fi
+          pnpm run smoke:local "$keydrop_env"
