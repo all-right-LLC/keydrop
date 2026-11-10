@@ -32,7 +32,8 @@
     "passwordHint": "Usa almeno 12 caratteri.",
     "success": "Il tuo account è pronto. Accedi per continuare.",
     "submit": "Crea amministratore",
-    "closed": "Questa istanza è già inizializzata."
+    "closed": "Questa istanza è già inizializzata.",
+    "telemetry": "Al termine della configurazione, Keydrop invia un solo ping anonimo (un ID casuale e il numero di versione) per contare quanti siti lo usano. Non vengono inviati URL, email o codici. Imposta KEYDROP_TELEMETRY su off per non inviarlo."
   },
   "auth": {
     "title": "Bentornato.",

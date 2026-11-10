@@ -18,6 +18,7 @@ export type RuntimeEnv = Omit<CloudflareEnv, "EMAIL"> & {
   EMAIL_FROM?: string;
   ELIGIBILITY_SECRETS?: string;
   CODE_ENCRYPTION_KEY?: string;
+  KEYDROP_TELEMETRY?: string;
   EMAIL?: EmailSender;
 };
 // 讀取原始綁定，尚未檢查必要設定；一般情況請用 runtime()。

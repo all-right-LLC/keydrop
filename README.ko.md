@@ -131,6 +131,7 @@ pnpm run deploy                        # 빌드, D1 마이그레이션 적용, �
 | `EMAIL` binding + `EMAIL_FROM` | binding / var | 이메일 사용 시 | Cloudflare Email Sending: OTP 로그인, 코드 이메일, 관리자 알림 |
 | `WEBHOOK_SECRETS` | secret | 웹훅 사용 시 | 발신 웹훅의 서명 시크릿 |
 | `ELIGIBILITY_SECRETS`, `EXTERNAL_REWARD_SECRETS` | secret | 선택 | 직접 만든 자격 검사와 외부 보상 수신기의 서명 시크릿 |
+| `KEYDROP_TELEMETRY` | var | 기본 켜짐 | 초기 설정이 끝날 때 한 번만 보내는 익명 신호(임의 ID＋버전), 설치 수 집계에만 사용합니다. `off`로 끌 수 있습니다. [자세히](docs/api/en/deployment.md#usage-statistics) |
 
 크론 트리거가 5분마다 실행되어 예약을 만료시키고, 이월 주문을 처리하고, 대기 중인 이메일을 보내고, 웹훅을 전달합니다. `wrangler.jsonc`를 수정한 뒤에는 `pnpm run cf-typegen`을 실행하세요.
 

@@ -32,7 +32,8 @@
     "passwordHint": "Mindestens 12 Zeichen verwenden.",
     "success": "Ihr Konto ist bereit. Melden Sie sich an, um fortzufahren.",
     "submit": "Administrator erstellen",
-    "closed": "Diese Instanz ist bereits initialisiert."
+    "closed": "Diese Instanz ist bereits initialisiert.",
+    "telemetry": "Nach Abschluss der Einrichtung sendet Keydrop einmalig einen anonymen Ping (eine zufällige ID und die Versionsnummer), damit das Projekt zählen kann, wie viele Websites es nutzen. URLs, E-Mails oder Codes werden nicht gesendet. Setze KEYDROP_TELEMETRY auf off, um ihn zu überspringen."
   },
   "auth": {
     "title": "Willkommen zurück.",

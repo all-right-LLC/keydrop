@@ -25,6 +25,7 @@
 | WEBHOOK_SECRETS | secret | 外发 Webhook 的签名密钥；见 [事件 Webhook](webhooks.md) |
 | ELIGIBILITY_SECRETS | secret | 资格验证端点的 Bearer 令牌；见 [外部资格验证](eligibility.md) |
 | EXTERNAL_REWARD_SECRETS | secret | 外部权益接收端的 HMAC 密钥；见 [外部权益](external-rewards.md) |
+| KEYDROP_TELEMETRY | var | 匿名安装统计（只发送一次），默认开启；设为 `off` 即可关闭，见[使用量统计](#使用量统计) |
 
 必要的密钥各自独立生成。不要沿用示例值，也不要随意更换加密密钥及身份索引密钥。配置模板只包含名称，真实值应保存在私人密钥管理工具与 Cloudflare Secrets 中。
 
@@ -74,3 +75,14 @@ Keydrop 的跨表引用可能指向导出顺序较晚的表，直接导入原始
 ## 定时任务
 
 Worker 每次 Cron 触发时依次执行：Stripe 折扣刷新、外部操作隔离、订单维护（释放过期预留、补货发码）、管理员通知邮件、码邮件入队与发送、Email 分发、匿名码邮件、Webhook 外发、外部撤销。每个任务各自隔离错误：一个任务失败（例如 `EMAIL_FROM` 格式错误或外部服务暂时不可用）只记录任务名称与错误信息，后面的任务照常执行；全部跑完后，这次调度会被标记为失败，方便在 Cloudflare 仪表板的 Cron 事件与 Workers Logs 中看到 `scheduled task <名称> failed`。
+
+## 使用量统计
+
+Keydrop 是开源项目，有多少站点在使用，对项目来说是一枚小小的荣誉勋章。每个安装在完成 `/setup` 时，会发送一次匿名请求到 `https://keydrop.allright.dev/api/telemetry`，项目网站会显示累计数字。
+
+- **会发送**：由你自己的数据库生成的随机实例 ID（不是从域名、账号或数据推算出来的）和 Keydrop 版本号。
+- **不会发送**：网站地址、邮箱、码、订单、客户或任何其他业务数据。项目网站不存储 IP 地址。
+- **时机**：只有一次，在 `/setup` 成功后。这次发送失败时，定时任务每小时最多补发一次，直到成功为止；成功之后就不再发送。不影响其他定时任务。
+- **关闭方式**：在执行初始化之前，到 Workers → 你的 Worker → Settings → Variables and Secrets（或 `wrangler.jsonc`）把 `KEYDROP_TELEMETRY` 设为 `off`（也接受 `0`、`false`、`no`、`disabled`）。
+
+代码在 `apps/web/src/lib/server/telemetry.ts`。

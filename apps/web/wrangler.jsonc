@@ -4,7 +4,9 @@
   "name": "keydrop",
   "vars": {
     "APP_URL": "https://keydrop.example",
-    "ADMIN_EMAIL": "admin@example.com"
+    "ADMIN_EMAIL": "admin@example.com",
+    // 匿名安裝回報（完成 /setup 後送一次隨機 ID 和版本號，只用來統計安裝數）；設成 "off" 關閉。
+    "KEYDROP_TELEMETRY": "on"
   },
   "main": "worker.ts",
   "triggers": { "crons": ["*/5 * * * *"] },

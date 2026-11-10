@@ -25,6 +25,8 @@ Optional services:
 - **Stripe** — set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` with `pnpm exec wrangler secret put …`, point a Stripe webhook at `APP_URL/api/stripe/webhook` and test in Stripe test mode first.
 - **Email** — add a Cloudflare Email Sending binding named `EMAIL` and set `EMAIL_FROM` to a verified sender. Without it, password sign-in, free claims and redemptions still work.
 
+Usage statistics: when setup completes, Keydrop sends one anonymous request (a random instance ID and the version number) to `keydrop.allright.dev`, only to count how many sites use it. It is sent once; no URLs, emails, codes or other data are included. Set the `KEYDROP_TELEMETRY` variable to `off` before setup to skip it.
+
 ## Local development
 
 Requires Node.js 24+ and pnpm.

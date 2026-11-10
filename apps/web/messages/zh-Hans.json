@@ -32,7 +32,8 @@
     "passwordHint": "至少 12 个字符。",
     "success": "账号已就绪，请登录以继续。",
     "submit": "创建管理员",
-    "closed": "此实例已完成初始化。"
+    "closed": "此实例已完成初始化。",
+    "telemetry": "完成初始化时，Keydrop 会发送一次匿名报告（随机 ID 和版本号），让项目统计有多少站点在使用。不会发送网址、邮箱或任何码，并且只发送这一次。不想发送的话，把 KEYDROP_TELEMETRY 设为 off。"
   },
   "auth": {
     "title": "欢迎回来。",

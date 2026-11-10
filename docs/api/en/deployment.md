@@ -25,6 +25,7 @@ Optional settings turn on extra features. Add them as Worker secrets (or binding
 | WEBHOOK_SECRETS | secret | Signing secrets for outgoing webhooks; see [Event webhooks](webhooks.md) |
 | ELIGIBILITY_SECRETS | secret | Bearer tokens for your eligibility endpoints; see [External eligibility](eligibility.md) |
 | EXTERNAL_REWARD_SECRETS | secret | HMAC keys for external reward receivers; see [External entitlements](external-rewards.md) |
+| KEYDROP_TELEMETRY | var | Anonymous one-time install count, on by default; set to `off` to disable; see [Usage statistics](#usage-statistics) |
 
 Generate each required secret separately. Do not reuse example values, and do not change the encryption key or identity index secret on a whim. The settings template contains only names. Keep real values in a private secret manager and in Cloudflare Secrets.
 
@@ -74,3 +75,14 @@ References: [Deploy buttons](https://developers.cloudflare.com/workers/platform/
 ## Scheduled jobs
 
 On each Cron trigger, the Worker runs these jobs in order: Stripe discount refresh, external operation isolation, order maintenance (release expired reservations, issue codes after restock), administrator notification emails, code email queuing and sending, email distribution, guest code emails, outgoing webhooks, and external revocations. Each job isolates its own errors. If one job fails (for example, a malformed `EMAIL_FROM` or a temporarily unavailable external service), Keydrop logs only the job name and error message, and the following jobs still run. After all jobs finish, the run is marked as failed, so you can see `scheduled task <name> failed` in the Cron events and Workers Logs in the Cloudflare dashboard.
+
+## Usage statistics
+
+Keydrop is open source, and the number of sites running it is a small badge of honor for the project. When an installation completes `/setup`, it sends a single anonymous request to `https://keydrop.allright.dev/api/telemetry`. The project website shows the total.
+
+- **Sent**: a random instance ID created by your own database (not derived from your domain, account or data) and the Keydrop version number.
+- **Not sent**: your site URL, emails, codes, orders, customers or any other business data. The project website does not store IP addresses.
+- **When**: once, right after `/setup` succeeds. If that request fails, the scheduled job retries at most once an hour until it succeeds; after that nothing is sent again. It never affects other jobs.
+- **Turn it off**: set the `KEYDROP_TELEMETRY` variable to `off` (also accepts `0`, `false`, `no`, `disabled`) in Workers → your Worker → Settings → Variables and Secrets, or in `wrangler.jsonc`, before running setup.
+
+The code is in `apps/web/src/lib/server/telemetry.ts`.

@@ -11,5 +11,5 @@ export default async function Setup() {
   const check = await deploymentCheck({ encryptionKey: true, origin: true });
   if (check.installed) redirect("/sign-in");
   const t = await getTranslations();
-  return <main className="auth-shell"><Link className="wordmark" href="/"><BrandWordmark label={t("common.brand")}/></Link><section className="auth-card">{check.problems.length ? <DeploymentProblems problems={check.problems}/> : <><h1>{t("setup.title")}</h1><p className="intro">{t("setup.description")}</p><AuthForm setup /></>}</section><PoweredBy/></main>;
+  return <main className="auth-shell"><Link className="wordmark" href="/"><BrandWordmark label={t("common.brand")}/></Link><section className="auth-card">{check.problems.length ? <DeploymentProblems problems={check.problems}/> : <><h1>{t("setup.title")}</h1><p className="intro">{t("setup.description")}</p><AuthForm setup /><p className="setup-note">{t("setup.telemetry")}</p></>}</section><PoweredBy/></main>;
 }

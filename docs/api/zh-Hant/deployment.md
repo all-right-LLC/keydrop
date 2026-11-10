@@ -25,6 +25,7 @@
 | WEBHOOK_SECRETS | secret | 外送 Webhook 的簽章密鑰；見 [事件 Webhook](webhooks.md) |
 | ELIGIBILITY_SECRETS | secret | 外部資格驗證端點使用的 Bearer 權杖；見 [外部資格驗證](eligibility.md) |
 | EXTERNAL_REWARD_SECRETS | secret | 外部權益接收端的 HMAC 金鑰；見 [外部權益](external-rewards.md) |
+| KEYDROP_TELEMETRY | var | 匿名安裝統計（只送一次），預設開啟；設成 `off` 即可關閉，見[使用量統計](#使用量統計) |
 
 必要密鑰各自獨立產生。不要沿用範例值，或任意更換加密密鑰及身分索引密鑰。設定範本只包含名稱，真實值應留在私人密鑰管理工具與 Cloudflare Secrets。
 
@@ -74,3 +75,14 @@ Keydrop 的跨表參照可能指向匯出順序較晚的表，直接匯入原始
 ## 排程工作
 
 Worker 每次 Cron 觸發依序執行：Stripe 折扣刷新、外部操作隔離、訂單維護（釋放過期預留、補貨發碼）、管理員通知信、碼信入列與寄送、Email 分發、匿名碼信、Webhook 外送、外部撤銷。每個工作各自隔離錯誤：一個工作失敗（例如 `EMAIL_FROM` 格式錯誤或外部服務暫時不可用）只記錄工作名稱與錯誤訊息，後面的工作照常執行；全部跑完後這次排程會標為失敗，方便在 Cloudflare 儀表板的 Cron 事件與 Workers Logs 看到 `scheduled task <名稱> failed`。
+
+## 使用量統計
+
+Keydrop 是開源專案，有多少站點在使用，對專案來說是一枚小小的榮譽勳章。每個安裝在完成 `/setup` 時，會送出一次匿名請求到 `https://keydrop.allright.dev/api/telemetry`，專案網站會顯示累計數字。
+
+- **會送出**：由你自己的資料庫產生的隨機實例 ID（不是從網域、帳號或資料推算出來的）和 Keydrop 版本號。
+- **不會送出**：網站網址、Email、碼、訂單、客戶或任何其他業務資料。專案網站不儲存 IP 位址。
+- **時機**：只有一次，在 `/setup` 成功後。這次送不出去時，排程工作每小時最多補送一次，直到成功為止；成功之後就不再送。不影響其他排程工作。
+- **關閉方式**：在執行初始化之前，到 Workers → 你的 Worker → Settings → Variables and Secrets（或 `wrangler.jsonc`）把 `KEYDROP_TELEMETRY` 設成 `off`（也接受 `0`、`false`、`no`、`disabled`）。
+
+程式在 `apps/web/src/lib/server/telemetry.ts`。

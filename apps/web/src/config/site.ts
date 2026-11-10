@@ -2,7 +2,7 @@
 export const siteFeatures={myCodes:true,adminNotificationEmail:true} as const;
 
 // 頁尾的「Powered by Keydrop」連結。MIT 授權不要求顯示，可以關掉；保留的話是對專案很大的支持。
-export const poweredBy={enabled:true,url:'https://keydrop.allright.dev'} as const;
+export const poweredBy={enabled:true,url:'https://keydrop.allright.dev/?ref=powered-by'} as const;
 
 export const optionalPageNames = ['docs', 'pricing', 'demo', 'changelog'] as const;
 export type OptionalPage = typeof optionalPageNames[number];

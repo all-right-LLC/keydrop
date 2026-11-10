@@ -1,5 +1,8 @@
 import { runtime } from "@/lib/server/env";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { initialize, setupInput, SetupError } from "@/lib/server/bootstrap";
+import { reportInstallation, telemetryEnabled } from "@/lib/server/telemetry";
+import { KEYDROP_VERSION } from "@/config/version";
 
 export async function POST(request: Request) {
   const { env, settings } = await runtime();
@@ -13,6 +16,9 @@ export async function POST(request: Request) {
   if (!input.success) return Response.json({ error: "INVALID_INPUT" }, { status: 400 });
   try {
     await initialize(env.DB, settings, input.data);
+    // 匿名安裝回報只在這裡送一次，不拖慢回應；失敗由排程補送。
+    const report = reportInstallation(env.DB, { enabled: telemetryEnabled(env.KEYDROP_TELEMETRY), version: KEYDROP_VERSION }).catch(() => undefined);
+    try { (await getCloudflareContext({ async: true })).ctx.waitUntil(report); } catch { await report; }
     return Response.json({ ok: true });
   } catch (error) {
     if (error instanceof SetupError) return Response.json({ error: error.code }, { status: error.code === "INVALID_SECRET" ? 403 : 409 });

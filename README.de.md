@@ -130,6 +130,7 @@ pnpm run deploy                        # baut, wendet D1-Migrationen an, deployt
 | `EMAIL` binding + `EMAIL_FROM` | binding / var | für E-Mail | Cloudflare Email Sending: OTP-Anmeldung, Code-E-Mails, Admin-Benachrichtigungen |
 | `WEBHOOK_SECRETS` | secret | für Webhooks | Signatur-Secrets für ausgehende Webhooks |
 | `ELIGIBILITY_SECRETS`, `EXTERNAL_REWARD_SECRETS` | secret | optional | Signatur-Secrets für deine eigenen Teilnahmeprüfungen und Empfänger externer Belohnungen |
+| `KEYDROP_TELEMETRY` | var | standardmäßig an | Einmaliger anonymer Ping (zufällige ID + Version) nach der Einrichtung, nur zum Zählen der Installationen; mit `off` deaktivieren. [Details](docs/api/en/deployment.md#usage-statistics) |
 
 Ein Cron-Trigger läuft alle fünf Minuten, um Reservierungen ablaufen zu lassen, Nachbestellungen zu erfüllen, wartende E-Mails zu senden und Webhooks zuzustellen. Führe nach dem Bearbeiten von `wrangler.jsonc` `pnpm run cf-typegen` aus.
 

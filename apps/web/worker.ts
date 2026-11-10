@@ -17,6 +17,8 @@ import {externalRewardService} from "./src/lib/server/external-reward-service";
 import {deliverAdminNotificationEmails} from "./src/lib/server/admin-notification-email";
 import {siteFeatures} from "./src/config/site";
 import {runScheduledTasks} from "./src/lib/server/scheduled";
+import {reportInstallation,telemetryEnabled} from "./src/lib/server/telemetry";
+import {KEYDROP_VERSION} from "./src/config/version";
 import type {RuntimeEnv} from "./src/lib/server/env";
 
 export default {
@@ -36,6 +38,8 @@ export default {
    {name:"guest-claim-emails",run:()=>deliverGuestClaimEmails(env.DB,mail)},
    {name:"webhooks",run:()=>deliverWebhookOutbox(env.DB,webhookHttpSender(webhookSecrets((env as CloudflareEnv & {WEBHOOK_SECRETS?:string}).WEBHOOK_SECRETS)))},
    {name:"external-revocations",run:()=>deliverExternalRevocations(env.DB,externalRewardService(runtimeEnv))},
+   // 安裝回報補送（初始化當下沒送成功時）；成功一次後就不再送，失敗不算排程失敗。
+   {name:"telemetry",run:()=>reportInstallation(env.DB,{enabled:telemetryEnabled(runtimeEnv.KEYDROP_TELEMETRY),version:KEYDROP_VERSION}).catch(()=>undefined)},
   ]);
  },
 } satisfies ExportedHandler<CloudflareEnv>;

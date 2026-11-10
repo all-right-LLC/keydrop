@@ -32,7 +32,8 @@
     "passwordHint": "Use at least 12 characters.",
     "success": "Your account is ready. Sign in to continue.",
     "submit": "Create administrator",
-    "closed": "This instance is already initialized."
+    "closed": "This instance is already initialized.",
+    "telemetry": "When setup finishes, Keydrop sends one anonymous ping (a random ID and the version number) so the project can count how many sites use it. No URLs, emails or codes are sent, and it is sent only once. Set KEYDROP_TELEMETRY to off to skip it."
   },
   "auth": {
     "title": "Welcome back.",

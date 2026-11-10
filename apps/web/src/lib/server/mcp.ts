@@ -1,3 +1,4 @@
+import {KEYDROP_VERSION} from "@/config/version";
 import {z} from "zod";
 import {McpServer,WebStandardStreamableHTTPServerTransport} from "@modelcontextprotocol/server";
 import {authenticateApiToken,type ApiScope} from "./api-tokens";
@@ -54,7 +55,7 @@ export async function handleMcpRequest(request:Request,context:{db:D1Database;ap
   if(!await claimRateLimit(context.db,context.identitySecret,`api-token:${principal.id}`))throw new HttpError(429,"RATE_LIMITED");
   if(request.method!=="POST")return new Response(null,{status:405,headers:{Allow:"POST","Cache-Control":"no-store"}});
   // 每次請求重新驗證權杖及建立伺服器，不讓暖機 Worker 沿用已撤銷授權。
-  server=new McpServer({name:"keydrop",version:"0.1.0"});
+  server=new McpServer({name:"keydrop",version:KEYDROP_VERSION});
   for(const schema of apiOperationSchemas){
    const {action:actionField,...shape}=schema.shape;const action=actionField.value;const definition=metadata[action];
    if((action==="products.create"||action.startsWith("discounts."))&&principal.productIds!==null)continue;

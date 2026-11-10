@@ -130,6 +130,7 @@ pnpm run deploy                        # 构建、执行 D1 迁移并部署
 | `EMAIL` binding + `EMAIL_FROM` | binding / var | 发邮件时 | Cloudflare Email Sending：验证码登录、码邮件、管理员提醒 |
 | `WEBHOOK_SECRETS` | secret | 使用 Webhook 时 | 外发 Webhook 的签名密钥 |
 | `ELIGIBILITY_SECRETS`, `EXTERNAL_REWARD_SECRETS` | secret | 可选 | 你自己的资格校验和外部奖励接收端的签名密钥 |
+| `KEYDROP_TELEMETRY` | var | 默认开启 | 完成初始化时发送一次匿名报告（随机 ID＋版本号），仅用于统计安装数；设为 `off` 即可关闭。[说明](docs/api/zh-Hans/deployment.md#使用量统计) |
 
 Cron 触发器每五分钟运行一次，用于让过期预留失效、处理缺货订单补发、发送排队中的邮件以及投递 Webhook。修改 `wrangler.jsonc` 后请运行 `pnpm run cf-typegen`。
 

@@ -130,6 +130,7 @@ pnpm run deploy                        # 建置、套用 D1 遷移並部署
 | `EMAIL` binding + `EMAIL_FROM` | binding / var | 寄信時 | Cloudflare Email Sending：驗證碼登入、寄碼郵件、管理員通知 |
 | `WEBHOOK_SECRETS` | secret | 使用 Webhook 時 | 對外 Webhook 的簽章密鑰 |
 | `ELIGIBILITY_SECRETS`, `EXTERNAL_REWARD_SECRETS` | secret | 選用 | 你自己的資格檢查和外部獎勵接收端的簽章密鑰 |
+| `KEYDROP_TELEMETRY` | var | 預設開啟 | 完成初始化時送一次匿名回報（隨機 ID＋版本號），只用來統計安裝數；設成 `off` 即可關閉。[說明](docs/api/zh-Hant/deployment.md#使用量統計) |
 
 Cron 觸發器每五分鐘執行一次，處理預留到期、補發缺貨訂單、寄送排隊中的郵件和投遞 Webhook。修改 `wrangler.jsonc` 後請執行 `pnpm run cf-typegen`。
 

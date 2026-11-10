@@ -32,7 +32,8 @@
     "passwordHint": "至少使用 12 個字元。",
     "success": "帳號已建立。請登入以繼續。",
     "submit": "建立管理員",
-    "closed": "這個執行個體已經初始化。"
+    "closed": "這個執行個體已經初始化。",
+    "telemetry": "完成初始化時，Keydrop 會送出一次匿名回報（隨機 ID 和版本號），讓專案統計有多少站點在使用。不會送出網址、Email 或任何碼，而且只送這一次。不想送的話，把 KEYDROP_TELEMETRY 設成 off。"
   },
   "auth": {
     "title": "歡迎回來。",

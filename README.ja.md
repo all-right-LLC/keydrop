@@ -130,6 +130,7 @@ pnpm run deploy                        # ビルド、D1 マイグレーション
 | `EMAIL` バインディング + `EMAIL_FROM` | binding / var | メール利用時 | Cloudflare Email Sending：OTP サインイン、コードのメール送信、管理者向け通知 |
 | `WEBHOOK_SECRETS` | secret | Webhook 利用時 | 送信 Webhook の署名シークレット |
 | `ELIGIBILITY_SECRETS`, `EXTERNAL_REWARD_SECRETS` | secret | 任意 | 独自の参加条件チェックと外部特典の受信先で使う署名シークレット |
+| `KEYDROP_TELEMETRY` | var | 既定で有効 | 初期設定完了時に 1 回だけ送る匿名通知（ランダム ID＋バージョン）。インストール数の集計にのみ使います。`off` で無効化。[詳細](docs/api/en/deployment.md#usage-statistics) |
 
 Cron トリガーが 5 分ごとに実行され、予約の期限切れ処理、入荷待ち注文の発送、キューに入ったメールの送信、Webhook の配信を行います。`wrangler.jsonc` を編集したら `pnpm run cf-typegen` を実行してください。
 

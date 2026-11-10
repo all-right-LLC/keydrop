@@ -130,6 +130,7 @@ pnpm run deploy                        # build, applica le migrazioni D1, deploy
 | Binding `EMAIL` + `EMAIL_FROM` | binding / var | per le email | Cloudflare Email Sending: accesso OTP, email con i codici, avvisi all'amministratore |
 | `WEBHOOK_SECRETS` | secret | per i webhook | Segreti di firma per i webhook in uscita |
 | `ELIGIBILITY_SECRETS`, `EXTERNAL_REWARD_SECRETS` | secret | opzionale | Segreti di firma per i tuoi controlli di idoneità e i ricevitori di ricompense esterne |
+| `KEYDROP_TELEMETRY` | var | attivo per impostazione predefinita | Un solo ping anonimo (ID casuale + versione) al termine della configurazione, usato solo per contare le installazioni; imposta `off` per disattivarlo. [Dettagli](docs/api/en/deployment.md#usage-statistics) |
 
 Un cron trigger viene eseguito ogni cinque minuti per far scadere le prenotazioni, evadere gli ordini arretrati, inviare le email in coda e consegnare i webhook. Esegui `pnpm run cf-typegen` dopo aver modificato `wrangler.jsonc`.
 

@@ -49,6 +49,7 @@ export function testDatabase() {
   sqlite.exec(readFileSync(new URL("../migrations/0043_code_handouts.sql", import.meta.url), "utf8"));
   sqlite.exec(readFileSync(new URL("../migrations/0044_locales.sql", import.meta.url), "utf8"));
   sqlite.exec(readFileSync(new URL("../migrations/0045_product_icons.sql", import.meta.url), "utf8"));
+  sqlite.exec(readFileSync(new URL("../migrations/0046_telemetry.sql", import.meta.url), "utf8"));
   const prepare = (sql: string, args: unknown[] = []) => ({
     bind: (...values: unknown[]) => prepare(sql, values),
     async first(column?: string) {

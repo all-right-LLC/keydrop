@@ -132,6 +132,7 @@ pnpm run deploy                        # يبني، ويطبّق ترحيلات 
 | ربط `EMAIL` + `EMAIL_FROM` | binding / var | للبريد الإلكتروني | Cloudflare Email Sending: تسجيل الدخول بـ OTP، ورسائل الأكواد، وتنبيهات المسؤول |
 | `WEBHOOK_SECRETS` | secret | للـ webhooks | أسرار التوقيع للـ webhooks الصادرة |
 | `ELIGIBILITY_SECRETS`, `EXTERNAL_REWARD_SECRETS` | secret | اختياري | أسرار التوقيع لفحوص الأهلية الخاصة بك ومستقبِلات المكافآت الخارجية |
+| `KEYDROP_TELEMETRY` | var | مفعّل افتراضيًا | إشارة مجهولة واحدة (معرّف عشوائي + الإصدار) عند اكتمال الإعداد، تُستخدم فقط لإحصاء عدد عمليات التثبيت؛ اضبطه على `off` لتعطيله. [التفاصيل](docs/api/en/deployment.md#usage-statistics) |
 
 يعمل مشغّل cron كل خمس دقائق لإنهاء الحجوزات المنتهية، وتنفيذ الطلبات المؤجّلة، وإرسال الرسائل المنتظرة في الطابور، وتسليم الـ webhooks. شغّل `pnpm run cf-typegen` بعد تعديل `wrangler.jsonc`.
 
