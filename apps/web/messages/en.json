@@ -49,6 +49,23 @@
     "verify": "Verify email",
     "verifyHint": "Your account is created. Verify your email to continue."
   },
+  "deploymentCheck": {
+    "title": "Finish the deployment settings.",
+    "description": "Keydrop can't start yet because some required settings are missing or invalid. Secret values are never shown here.",
+    "missing": "Not set.",
+    "invalid": "Invalid format.",
+    "database": "The D1 binding named DB is missing.",
+    "migrations": "The database tables are missing. Apply the D1 migrations with pnpm run db:migrate:remote, or set the deploy command to pnpm run deploy, then deploy again.",
+    "mismatch": "APP_URL is {expected}, but this page was opened at {actual}. Setup only accepts requests from APP_URL, so set it to this site's address.",
+    "where": "Set these in the Cloudflare dashboard under Workers → your Worker → Settings → Variables and Secrets, then deploy again.",
+    "hints": {
+      "appUrl": "Use the site's HTTPS origin, e.g. https://keydrop.your-subdomain.workers.dev, without a path.",
+      "adminEmail": "Use a valid email address.",
+      "secret": "Use a random value of at least 32 characters, e.g. openssl rand -hex 32. Each secret must be different.",
+      "emailFrom": "Use a verified sender address, or remove it.",
+      "encryptionKey": "Use exactly 64 hexadecimal characters, e.g. openssl rand -hex 32. Back it up."
+    }
+  },
   "errors": {
     "INVALID_SECRET": "The setup key is incorrect.",
     "ALREADY_INITIALIZED": "This instance is already initialized.",

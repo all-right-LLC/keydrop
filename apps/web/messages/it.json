@@ -49,6 +49,23 @@
     "verify": "Verifica email",
     "verifyHint": "Il tuo account è stato creato. Verifica la tua email per continuare."
   },
+  "deploymentCheck": {
+    "title": "Completa le impostazioni di deploy.",
+    "description": "Keydrop non può ancora avviarsi perché alcune impostazioni obbligatorie mancano o non sono valide. I valori segreti non vengono mai mostrati qui.",
+    "missing": "Non impostato.",
+    "invalid": "Formato non valido.",
+    "database": "Manca il binding D1 chiamato DB.",
+    "migrations": "Mancano le tabelle del database. Applica le migrazioni D1 con pnpm run db:migrate:remote, oppure imposta il comando di deploy su pnpm run deploy, poi esegui di nuovo il deploy.",
+    "mismatch": "APP_URL è {expected}, ma questa pagina è stata aperta da {actual}. La configurazione iniziale accetta solo richieste da APP_URL: impostalo sull'indirizzo di questo sito.",
+    "where": "Impostali nella dashboard Cloudflare in Workers → il tuo Worker → Settings → Variables and Secrets, poi esegui di nuovo il deploy.",
+    "hints": {
+      "appUrl": "Usa l'origine HTTPS del sito, ad es. https://keydrop.your-subdomain.workers.dev, senza percorso.",
+      "adminEmail": "Usa un indirizzo email valido.",
+      "secret": "Usa un valore casuale di almeno 32 caratteri, ad es. openssl rand -hex 32. Ogni segreto deve essere diverso.",
+      "emailFrom": "Usa un mittente verificato oppure rimuovilo.",
+      "encryptionKey": "Usa esattamente 64 caratteri esadecimali, ad es. openssl rand -hex 32. Conservane una copia."
+    }
+  },
   "errors": {
     "INVALID_SECRET": "La chiave di configurazione non è corretta.",
     "ALREADY_INITIALIZED": "Questa istanza è già inizializzata.",

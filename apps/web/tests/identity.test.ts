@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { initialize, secretEqual } from "../src/lib/server/bootstrap";
-import { readSettings } from "../src/lib/server/config";
+import { ConfigError, configProblems, readSettings } from "../src/lib/server/config";
 import { createAuth, isAdmin } from "../src/lib/server/auth";
 import { testDatabase } from "./d1";
 import type { RuntimeEnv } from "../src/lib/server/env";
@@ -35,6 +35,23 @@ describe("部署設定", () => {
   });
   it("只接受完整可信 origin", () => {
     for (const APP_URL of ["https://example.test/path", "http://example.test", "https://user:pass@example.test"]) expect(() => readSettings({ ...settings, APP_URL })).toThrow();
+  });
+  it("APP_URL 結尾斜線自動去掉", () => {
+    expect(readSettings({ ...settings, APP_URL: "https://example.test/" }).APP_URL).toBe("https://example.test");
+  });
+  it("設定錯誤列出欄位名稱與缺少／格式錯誤", () => {
+    const env = { APP_URL: "https://example.test", ADMIN_EMAIL: "not-an-email", SETUP_SECRET: "short-sensitive" };
+    expect(() => readSettings(env)).toThrow(ConfigError);
+    const problems = configProblems(env);
+    expect(problems).toEqual(expect.arrayContaining([
+      { name: "ADMIN_EMAIL", kind: "invalid" },
+      { name: "BETTER_AUTH_SECRET", kind: "missing" },
+      { name: "SETUP_SECRET", kind: "invalid" },
+      { name: "CODE_ENCRYPTION_KEY", kind: "missing" },
+    ]));
+    expect(JSON.stringify(problems)).not.toContain("sensitive");
+    expect(configProblems({ ...settings, CODE_ENCRYPTION_KEY: "z".repeat(64) })).toEqual([{ name: "CODE_ENCRYPTION_KEY", kind: "invalid" }]);
+    expect(configProblems({ ...settings, CODE_ENCRYPTION_KEY: "a".repeat(64) })).toEqual([]);
   });
   it("固定長度摘要比較", async () => {
     expect(await secretEqual("a", "a")).toBe(true);

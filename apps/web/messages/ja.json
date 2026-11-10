@@ -49,6 +49,23 @@
     "verify": "メールアドレスを認証",
     "verifyHint": "アカウントを作成しました。続行するにはメールアドレスを認証してください。"
   },
+  "deploymentCheck": {
+    "title": "デプロイ設定を完了してください。",
+    "description": "必須の設定が未入力または形式が正しくないため、Keydrop を起動できません。シークレットの値はここに表示されません。",
+    "missing": "未設定です。",
+    "invalid": "形式が正しくありません。",
+    "database": "DB という名前の D1 バインディングがありません。",
+    "migrations": "データベースのテーブルがありません。pnpm run db:migrate:remote で D1 マイグレーションを適用するか、デプロイコマンドを pnpm run deploy にして再デプロイしてください。",
+    "mismatch": "APP_URL は {expected} ですが、このページは {actual} で開かれています。初期設定は APP_URL からのリクエストのみ受け付けるため、このサイトのアドレスに変更してください。",
+    "where": "Cloudflare ダッシュボードの Workers → 対象の Worker → Settings → Variables and Secrets で設定し、再デプロイしてください。",
+    "hints": {
+      "appUrl": "サイトの HTTPS オリジン（例: https://keydrop.your-subdomain.workers.dev）をパスなしで指定します。",
+      "adminEmail": "有効なメールアドレスを指定してください。",
+      "secret": "32 文字以上のランダムな値を指定します（例: openssl rand -hex 32）。シークレットごとに別の値にしてください。",
+      "emailFrom": "確認済みの送信元アドレスを指定するか、削除してください。",
+      "encryptionKey": "ちょうど 64 文字の 16 進数を指定します（例: openssl rand -hex 32）。必ずバックアップしてください。"
+    }
+  },
   "errors": {
     "INVALID_SECRET": "セットアップキーが正しくありません。",
     "ALREADY_INITIALIZED": "このインスタンスはすでに初期化されています。",

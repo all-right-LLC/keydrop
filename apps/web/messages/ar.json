@@ -49,6 +49,23 @@
     "verify": "التحقق من البريد الإلكتروني",
     "verifyHint": "تم إنشاء حسابك. تحقّق من بريدك الإلكتروني للمتابعة."
   },
+  "deploymentCheck": {
+    "title": "أكمل إعدادات النشر.",
+    "description": "لا يمكن تشغيل Keydrop بعد لأن بعض الإعدادات المطلوبة مفقودة أو غير صالحة. لا تُعرض القيم السرية هنا أبدًا.",
+    "missing": "غير مُعيَّن.",
+    "invalid": "التنسيق غير صالح.",
+    "database": "ربط D1 المسمى DB مفقود.",
+    "migrations": "جداول قاعدة البيانات مفقودة. طبّق ترحيلات D1 باستخدام pnpm run db:migrate:remote، أو اضبط أمر النشر على pnpm run deploy، ثم انشر مرة أخرى.",
+    "mismatch": "قيمة APP_URL هي {expected}، لكن هذه الصفحة فُتحت من {actual}. لا يقبل الإعداد الأولي إلا الطلبات القادمة من APP_URL، لذا اضبطه على عنوان هذا الموقع.",
+    "where": "اضبطها في لوحة تحكم Cloudflare ضمن Workers ← الـ Worker الخاص بك ← Settings ← Variables and Secrets، ثم انشر مرة أخرى.",
+    "hints": {
+      "appUrl": "استخدم أصل HTTPS للموقع دون مسار، مثل https://keydrop.your-subdomain.workers.dev.",
+      "adminEmail": "استخدم عنوان بريد إلكتروني صالحًا.",
+      "secret": "استخدم قيمة عشوائية من 32 حرفًا على الأقل، مثل openssl rand -hex 32. يجب أن يكون كل سر مختلفًا.",
+      "emailFrom": "استخدم عنوان مرسل موثّقًا أو احذفه.",
+      "encryptionKey": "استخدم 64 حرفًا ست عشريًا بالضبط، مثل openssl rand -hex 32. احتفظ بنسخة احتياطية منه."
+    }
+  },
   "errors": {
     "INVALID_SECRET": "مفتاح الإعداد غير صحيح.",
     "ALREADY_INITIALIZED": "تمت تهيئة هذه النسخة بالفعل.",

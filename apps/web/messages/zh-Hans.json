@@ -49,6 +49,23 @@
     "verify": "验证邮箱",
     "verifyHint": "账号已创建，请验证邮箱以继续。"
   },
+  "deploymentCheck": {
+    "title": "请完成部署设置。",
+    "description": "有些必要设置没有填写或格式不对，Keydrop 还无法启动。这里不会显示任何密钥值。",
+    "missing": "尚未设置。",
+    "invalid": "格式不正确。",
+    "database": "缺少名为 DB 的 D1 绑定。",
+    "migrations": "数据库还没有数据表。请运行 pnpm run db:migrate:remote 应用 D1 迁移，或把部署命令设为 pnpm run deploy，再重新部署。",
+    "mismatch": "APP_URL 是 {expected}，但这个页面是从 {actual} 打开的。初始化只接受来自 APP_URL 的请求，请把它改成本站地址。",
+    "where": "请到 Cloudflare 控制台 Workers → 你的 Worker → Settings → Variables and Secrets 设置，然后重新部署。",
+    "hints": {
+      "appUrl": "填写网站的 HTTPS origin，例如 https://keydrop.your-subdomain.workers.dev，不含路径。",
+      "adminEmail": "请填写有效的邮箱。",
+      "secret": "请填写至少 32 个字符的随机值，例如 openssl rand -hex 32；每个密钥都要不同。",
+      "emailFrom": "请填写已验证的发件地址，或删除这个变量。",
+      "encryptionKey": "请填写正好 64 个十六进制字符，例如 openssl rand -hex 32，并做好备份。"
+    }
+  },
   "errors": {
     "INVALID_SECRET": "初始化密钥不正确。",
     "ALREADY_INITIALIZED": "此实例已完成初始化。",

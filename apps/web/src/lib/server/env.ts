@@ -20,7 +20,8 @@ export type RuntimeEnv = Omit<CloudflareEnv, "EMAIL"> & {
   CODE_ENCRYPTION_KEY?: string;
   EMAIL?: EmailSender;
 };
-export async function runtime() {
+// 讀取原始綁定，尚未檢查必要設定；一般情況請用 runtime()。
+export async function runtimeEnv() {
   const { env } = await getCloudflareContext({ async: true });
   const bindings = { ...env } as RuntimeEnv;
   // OpenNext 開發代理不載入 .env；只在開發環境補入指定的伺服器變數。
@@ -29,5 +30,9 @@ export async function runtime() {
       if (process.env[key] !== undefined) bindings[key] = process.env[key];
     }
   }
+  return bindings;
+}
+export async function runtime() {
+  const bindings = await runtimeEnv();
   return { env: bindings, settings: readSettings(bindings as unknown as Record<string, unknown>) };
 }

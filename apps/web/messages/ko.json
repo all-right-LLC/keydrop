@@ -49,6 +49,23 @@
     "verify": "이메일 인증",
     "verifyHint": "계정이 생성되었습니다. 계속하려면 이메일을 인증하세요."
   },
+  "deploymentCheck": {
+    "title": "배포 설정을 완료하세요.",
+    "description": "일부 필수 설정이 없거나 형식이 올바르지 않아 Keydrop을 시작할 수 없습니다. 비밀 값은 여기에 표시되지 않습니다.",
+    "missing": "설정되지 않았습니다.",
+    "invalid": "형식이 올바르지 않습니다.",
+    "database": "이름이 DB인 D1 바인딩이 없습니다.",
+    "migrations": "데이터베이스 테이블이 없습니다. pnpm run db:migrate:remote로 D1 마이그레이션을 적용하거나 배포 명령을 pnpm run deploy로 설정한 뒤 다시 배포하세요.",
+    "mismatch": "APP_URL은 {expected}이지만 이 페이지는 {actual}에서 열렸습니다. 초기 설정은 APP_URL에서 온 요청만 받으므로 이 사이트 주소로 바꾸세요.",
+    "where": "Cloudflare 대시보드의 Workers → 해당 Worker → Settings → Variables and Secrets에서 설정한 뒤 다시 배포하세요.",
+    "hints": {
+      "appUrl": "경로 없이 사이트의 HTTPS origin을 입력하세요. 예: https://keydrop.your-subdomain.workers.dev",
+      "adminEmail": "유효한 이메일 주소를 입력하세요.",
+      "secret": "32자 이상의 임의 값을 입력하세요. 예: openssl rand -hex 32. 비밀마다 다른 값을 사용하세요.",
+      "emailFrom": "인증된 발신 주소를 입력하거나 삭제하세요.",
+      "encryptionKey": "정확히 64자의 16진수를 입력하세요. 예: openssl rand -hex 32. 반드시 백업하세요."
+    }
+  },
   "errors": {
     "INVALID_SECRET": "설정 키가 올바르지 않습니다.",
     "ALREADY_INITIALIZED": "이 인스턴스는 이미 초기화되었습니다.",
